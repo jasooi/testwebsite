@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Balloon Game</title>
+	<style>
+		#balloon {
+			background-color: red;
+			border-radius: 50%;
+			width: 200px;
+			height: 200px;
+			top: 50%;
+			left: 50%;
+			position: absolute;
+			transform: translate(-50%, -50%);
+		}
+	</style>
+</head>
+<body>
+	<div id="balloon"></div>
+	<script>
+		const balloon = document.getElementById("balloon");
+		let arr = ["red", "green", "blue"];
+		var colorIndex = 0;
+		var widthHeight = 200;
+
+		function changeSize(current, inc){
+			<!--current should be an integer-->
+			let y = current;
+			y += inc;
+			if (y >420 || y <200){
+				y = 200;
+			}
+			balloon.style.width = y + "px";
+			balloon.style.height = y + "px";
+			return y;
+		}
+
+		function changeColor(current, dir){
+			<!--dir should be either 1 or -1 to indicate direction of indexing-->
+			let x = current;
+			if (dir == 1 && x == 2) {
+				x = 0;
+				balloon.style.backgroundColor = arr[x];
+			} else if (dir == -1 && x == 0) {
+				x = 2;
+				balloon.style.backgroundColor = arr[x];
+			} else {
+				x += dir;
+				balloon.style.backgroundColor = arr[x];
+			}
+			return x;
+		}
+
+		balloon.addEventListener("click", function(){
+			widthHeight = changeSize(widthHeight,10);
+			colorIndex = changeColor(colorIndex, 1);
+		})
+		balloon.addEventListener("mouseout", function(){
+			widthHeight = changeSize(widthHeight, -5);
+			colorIndex = changeColor(colorIndex, -1);
+		})
+	</script>
+</body>
+</html>
